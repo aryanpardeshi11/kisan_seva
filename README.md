@@ -1,4 +1,4 @@
-# 🌾 AgriTech Nexus — Smart Farmer & APMC Mandi Portal
+# 🌾 Kisan Seva — Smart Farmer & APMC Mandi Portal
 
 > **Created & Maintained by:** [Aryan Pardeshi](https://github.com/aryanpardeshi11)  
 > **Tech Stack:** React 18, Vite, Capacitor Android, Vanilla CSS Design System, Google Gemini AI REST API  
@@ -7,7 +7,7 @@
 
 ## 🚀 Overview
 
-**AgriTech Nexus** is a next-generation, high-performance agricultural portal and mobile application designed to empower Indian farmers, traders, and agricultural experts with real-time APMC Mandi commodity rates, AI plant disease diagnosis, custom soil NPK fertilizer calculators, soil testing lab finders, crop growth monitoring, and a vibrant community network.
+**Kisan Seva** is a next-generation, high-performance agricultural portal and mobile application designed to empower Indian farmers, traders, and agricultural experts with real-time APMC Mandi commodity rates, AI plant disease diagnosis, custom soil NPK fertilizer calculators, soil testing lab finders, crop growth monitoring, and a vibrant community network.
 
 ---
 
@@ -61,26 +61,6 @@ npx cap sync
 
 # Open project in Android Studio to build APK
 npx cap open android
-```
-
----
-
-## 📁 Repository Structure
-
-```
-AgriTech-Nexus/
-├── agritech_react/
-│   ├── android/              # Native Android Studio project (Capacitor)
-│   ├── src/
-│   │   ├── components/       # Header, BottomNav, AuthModal, SettingsModal & Tool Modals
-│   │   ├── config/           # Central developer Gemini API Key configuration
-│   │   ├── context/          # ThemeContext & AuthContext state providers
-│   │   ├── data/             # Complete datasets (Diseases, NPK, Mandi Rates, Soil Labs, Logs)
-│   │   ├── services/         # Live Gemini AI REST service
-│   │   └── views/            # AiHubView & CommunityView
-│   ├── package.json
-│   └── vite.config.js
-└── README.md
 ```
 
 ---

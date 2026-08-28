@@ -1,4 +1,4 @@
-package com.agritech.app;
+﻿package com.kisanseva.app;
 
 import com.getcapacitor.BridgeActivity;
 

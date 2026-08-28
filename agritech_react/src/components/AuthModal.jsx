@@ -105,7 +105,7 @@ export const AuthModal = ({ isOpen, onClose }) => {
             {isSignUp ? 'Create Farmer Account' : 'Farmer & Trader Login'}
           </h2>
           <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '4px' }}>
-            {isSignUp ? 'Join AgriTech Nexus smart agricultural network' : 'Enter registered phone or username to continue'}
+            {isSignUp ? 'Join Kisan Seva smart agricultural network' : 'Enter registered phone or username to continue'}
           </p>
         </div>
 

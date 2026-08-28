@@ -22,7 +22,7 @@ export const AiHubView = ({ onOpenSettings }) => {
     {
       id: 1,
       sender: 'bot',
-      text: 'Namaste! I am your AgriTech 24/7 AI Crop & Agronomy Assistant. Ask me anything about crop diseases, fertilizer calculations, APMC Mandi rates, soil testing, or government schemes!',
+      text: 'Namaste! I am your Kisan Seva 24/7 AI Crop & Agronomy Assistant. Ask me anything about crop diseases, fertilizer calculations, APMC Mandi rates, soil testing, or government schemes!',
       time: '08:00 AM'
     }
   ]);
@@ -97,7 +97,7 @@ export const AiHubView = ({ onOpenSettings }) => {
         whiteSpace: 'nowrap'
       }}>
         <div style={{ fontSize: '11px', fontWeight: 'bold', color: 'var(--text-muted)', marginBottom: '8px' }}>
-          SMART AGRITECH TOOLS (TAP TO OPEN)
+          SMART KISAN SEVA TOOLS (TAP TO OPEN)
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <button className="btn-primary" style={{ padding: '6px 12px', fontSize: '12px', backgroundColor: '#15803D' }} onClick={() => setActiveModal('doctor')}>
@@ -138,7 +138,7 @@ export const AiHubView = ({ onOpenSettings }) => {
               boxShadow: 'var(--shadow-sm)'
             }}
           >
-            <p style={{ fontSize: '13px', lineHeight: 1.4, whitespace: 'pre-wrap' }}>{m.text}</p>
+            <p style={{ fontSize: '13px', lineHeight: 1.4, whiteSpace: 'pre-wrap' }}>{m.text}</p>
             <span style={{ fontSize: '10px', opacity: 0.7, marginTop: '4px', display: 'block', textAlign: 'right' }}>{m.time}</span>
           </div>
         ))}

@@ -1,4 +1,4 @@
-# 🌾 AgriTech Nexus — React + Vite Mobile & Web Application
+# 🌾 Kisan Seva — React + Vite Mobile & Web Application
 
 > **Developer:** [Aryan Pardeshi](https://github.com/aryanpardeshi11)  
 > **Framework:** React 18, Vite, Capacitor Android, Gemini AI  

@@ -35,7 +35,7 @@ export const Header = ({ onOpenSettings }) => {
           🌾
         </div>
         <div>
-          <h1 style={{ fontSize: '18px', fontWeight: 'bold', lineHeight: 1.2 }}>AgriTech Nexus</h1>
+          <h1 style={{ fontSize: '18px', fontWeight: 'bold', lineHeight: 1.2 }}>Kisan Seva</h1>
           <div style={{ fontSize: '11px', opacity: 0.85, display: 'flex', alignItems: 'center', gap: '4px' }}>
             <Sparkles size={12} color="var(--secondary)" />
             Smart Farmer & APMC Portal

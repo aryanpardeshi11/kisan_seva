@@ -1,8 +1,8 @@
 {
-  "name": "agritech-nexus",
+  "name": "kisan-seva",
   "private": true,
   "version": "1.0.0",
-  "description": "AgriTech Nexus - Smart Farmer & APMC Mandi Portal powered by React 18, Vite, Capacitor Android, and Gemini AI",
+  "description": "Kisan Seva - Smart Farmer & APMC Mandi Portal powered by React 18, Vite, Capacitor Android, and Gemini AI",
   "author": "Aryan Pardeshi",
   "type": "module",
   "scripts": {

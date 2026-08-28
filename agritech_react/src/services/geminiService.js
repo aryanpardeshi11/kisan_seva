@@ -5,7 +5,7 @@ export const callGeminiApi = async (userQuery) => {
     return null; // Fallback to built-in agronomy engine
   }
 
-  const systemContext = `You are AgriTech AI Assistant, an expert agricultural scientist and APMC Mandi specialist in India. 
+  const systemContext = `You are Kisan Seva AI Assistant, an expert agricultural scientist and APMC Mandi specialist in India. 
 You advise farmers on crop disease treatment, NPK fertilizers, soil health, crop growth, weather advisory, and PM-Kisan government schemes. 
 Provide clear, practical, expert agricultural guidance in simple terms for a farmer.`;
 
@@ -25,7 +25,6 @@ Provide clear, practical, expert agricultural guidance in simple terms for a far
     }
   };
 
-  // Try calling gemini-1.5-flash endpoint first, then gemini-2.0-flash / gemini-pro fallback
   const models = ['gemini-1.5-flash', 'gemini-2.0-flash', 'gemini-pro'];
 
   for (const model of models) {
@@ -51,5 +50,5 @@ Provide clear, practical, expert agricultural guidance in simple terms for a far
     }
   }
 
-  return null; // Fallback to built-in agronomy engine if fetch fails or network offline
+  return null;
 };
