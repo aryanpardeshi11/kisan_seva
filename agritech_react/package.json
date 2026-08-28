@@ -1,7 +1,9 @@
 {
-  "name": "agritech_react",
+  "name": "agritech-nexus",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "AgriTech Nexus - Smart Farmer & APMC Mandi Portal powered by React 18, Vite, Capacitor Android, and Gemini AI",
+  "author": "Aryan Pardeshi",
   "type": "module",
   "scripts": {
     "dev": "vite",
