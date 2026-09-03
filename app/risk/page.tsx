@@ -1,0 +1,182 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useLanguage } from "../../components/LanguageContext";
+
+interface RiskData {
+  district: string;
+  temp: number;
+  humidity: number;
+  condition: string;
+  riskScore: number;
+  riskLevel: "low" | "medium" | "high";
+}
+
+export default function RiskPage() {
+  const router = useRouter();
+  const { t } = useLanguage();
+  const [isOnline, setIsOnline] = useState(true);
+  const [district, setDistrict] = useState("");
+  const [data, setData] = useState<RiskData | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [locating, setLocating] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    setIsOnline(navigator.onLine);
+  }, []);
+
+  const fetchRiskByLocation = () => {
+    if (!navigator.geolocation) {
+      setError("Location feature is browser mein support nahi hai");
+      return;
+    }
+    setLocating(true);
+    setError("");
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        setLocating(false);
+        setLoading(true);
+        try {
+          const res = await fetch(`/api/risk-score?lat=${lat}&lon=${lon}`);
+          const json = await res.json();
+          if (json.error) {
+            setError(json.error);
+          } else {
+            setData(json);
+            setDistrict(json.district);
+          }
+        } catch {
+          setError("Kuch problem aayi, dobara try karo");
+        }
+        setLoading(false);
+      },
+      () => {
+        setLocating(false);
+        setError("Location access allow nahi hua. Manually district likho.");
+      }
+    );
+  };
+
+  const fetchRiskByDistrict = async () => {
+    if (!district.trim()) {
+      setError("District/area naam daalo");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch(`/api/risk-score?district=${encodeURIComponent(district)}`);
+      const json = await res.json();
+      if (json.error) {
+        setError(json.error);
+      } else {
+        setData(json);
+      }
+    } catch {
+      setError("Kuch problem aayi, dobara try karo");
+    }
+    setLoading(false);
+  };
+
+  const riskColor =
+    data?.riskLevel === "high"
+      ? "from-red-500 to-orange-500"
+      : data?.riskLevel === "medium"
+      ? "from-amber-400 to-yellow-500"
+      : "from-green-500 to-emerald-500";
+
+  const riskText =
+    data?.riskLevel === "high" ? t("riskHigh") : data?.riskLevel === "medium" ? t("riskMedium") : t("riskLow");
+
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-lime-50 p-6">
+      <button onClick={() => router.back()} className="text-green-700 text-sm font-medium mb-4">
+        ← Back
+      </button>
+      <h1 className="text-2xl font-extrabold text-gray-800 mb-1">🌤️ {t("riskTitle")}</h1>
+      <p className="text-sm text-gray-500 mb-6">{t("riskSubtitle")}</p>
+
+      {!isOnline ? (
+        <div className="bg-amber-50 border-2 border-amber-200 rounded-3xl p-6 text-center">
+          <span className="text-4xl">📡</span>
+          <h2 className="font-bold text-gray-800 mt-3">{t("needsInternet")}</h2>
+          <p className="text-sm text-gray-500 mt-2">{t("needsInternetDesc")}</p>
+        </div>
+      ) : (
+        <>
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl shadow-green-100 border border-white p-6 mb-6 space-y-4">
+            <button
+              onClick={fetchRiskByLocation}
+              disabled={locating}
+              className="w-full bg-blue-50 text-blue-700 rounded-2xl p-3.5 font-semibold flex items-center justify-center gap-2 disabled:opacity-60"
+            >
+              {locating ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-blue-700 border-t-transparent rounded-full animate-spin"></span>
+                  Location dhundh rahe hain...
+                </>
+              ) : (
+                <>📍 Use My Location</>
+              )}
+            </button>
+
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-px bg-gray-200" />
+              <span className="text-xs text-gray-400">YA</span>
+              <div className="flex-1 h-px bg-gray-200" />
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-700 mb-2 block">District</label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  className="flex-1 border-2 border-gray-200 rounded-2xl p-3 text-gray-900 font-medium placeholder:text-gray-400 bg-white focus:border-green-500 focus:outline-none shadow-sm"
+                  placeholder="e.g. Ahmednagar"
+                  value={district}
+                  onChange={(e) => setDistrict(e.target.value)}
+                />
+                <button
+                  onClick={fetchRiskByDistrict}
+                  disabled={loading}
+                  className="bg-green-600 text-white rounded-2xl px-5 font-semibold disabled:opacity-60"
+                >
+                  {loading ? "..." : "Check"}
+                </button>
+              </div>
+            </div>
+            {error && <p className="text-red-600 text-xs">{error}</p>}
+          </div>
+
+          {data && (
+            <div className={`bg-gradient-to-br ${riskColor} rounded-3xl p-6 text-white shadow-xl`}>
+              <p className="text-sm opacity-90">{data.district}</p>
+              <h2 className="text-3xl font-extrabold mt-1">{data.riskScore}%</h2>
+              <p className="font-semibold mt-1">{riskText}</p>
+
+              <div className="grid grid-cols-3 gap-3 mt-5">
+                <div className="bg-white/20 rounded-2xl p-3 text-center">
+                  <p className="text-xs opacity-80">{t("temperature")}</p>
+                  <p className="font-bold">{data.temp}°C</p>
+                </div>
+                <div className="bg-white/20 rounded-2xl p-3 text-center">
+                  <p className="text-xs opacity-80">{t("humidity")}</p>
+                  <p className="font-bold">{data.humidity}%</p>
+                </div>
+                <div className="bg-white/20 rounded-2xl p-3 text-center">
+                  <p className="text-xs opacity-80">{t("condition")}</p>
+                  <p className="font-bold text-sm">{data.condition}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </main>
+  );
+}
